@@ -237,6 +237,7 @@ body{max-width:820px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   <div id="toast" role="status" class="toast"></div>
   <script>
 const STORAGE_KEY = "tvch";
+const DRAFT_STORAGE_KEY = "tvch_draft";
 const AUTO_IMPORT_FILE = "./guide-tv-sauvegarde%20(5).json";
 const defaults = [
  ["TF1","Généraliste"],["France 2","Généraliste"],["France 3","Généraliste"],["France 4","Jeunesse"],["France 5","Culture"],["Canal+","Généraliste"],["M6","Généraliste"],["Arte","Culture"],["C8","Divertissement"],["W9","Divertissement"],["TMC","Divertissement"],["TFX","Divertissement"],["NRJ12","Divertissement"],["BFM TV","Info"],["CNews","Info"],["CSTAR","Divertissement"],["Gulli","Jeunesse"],["France Info","Info"],["LCI","Info"],["Paris Première","Culture"],["Comedy Central","Divertissement"]
@@ -278,6 +279,40 @@ async function autoImportData(){
  }
 }
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(channels))}catch(e){toast("Stockage indisponible sur ce navigateur")}}
+function saveDraft(draft){
+ try{localStorage.setItem(DRAFT_STORAGE_KEY,JSON.stringify(draft))}
+ catch(e){toast("Stockage indisponible sur ce navigateur")}
+}
+function loadDraft(){
+ try{
+  const draft=JSON.parse(localStorage.getItem(DRAFT_STORAGE_KEY));
+  return draft&&typeof draft==="object"?draft:null;
+ }catch(e){return null}
+}
+function clearDraft(){try{localStorage.removeItem(DRAFT_STORAGE_KEY)}catch(e){}}
+function channelFormData(){
+ return {name:$("#channelName").value,category:$("#channelCategory").value,url:$("#channelUrl").value};
+}
+function programFormData(){
+ return {
+  date:$("#programDate").value,repeat:$("#programRepeat").value,time:$("#programTime").value,
+  endTime:$("#programEndTime").value,name:$("#programName").value,
+  description:$("#programDescription").value,season:$("#programSeason").value,
+  episode:$("#programEpisode").value,genre:$("#programGenre").value
+ };
+}
+function persistChannelDraft(){saveDraft({type:"channel",editingId,values:channelFormData()})}
+function persistProgramDraft(){saveDraft({type:"program",channelId:currentProgramChannel?.id||null,editingProgramId,values:programFormData()})}
+function restoreDraft(){
+ const draft=loadDraft();
+ if(!draft?.values)return;
+ if(draft.type==="channel"){
+  if(draft.editingId&&!channels.some(c=>c.id===draft.editingId)){clearDraft();return}
+  openChannel(draft.editingId||null,draft.values);
+ }else if(draft.type==="program"&&channels.some(c=>c.id===draft.channelId)){
+  openPrograms(draft.channelId,draft.editingProgramId||null,draft.values);
+ }else if(draft.type==="program")clearDraft();
+}
 function initials(name){return name.split(/[\s-]+/).slice(0,2).map(s=>s[0]||"").join("").toUpperCase()}
 function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function minutes(time){if(!time||!/^\d{2}:\d{2}$/.test(time))return null;const [h,m]=time.split(":").map(Number);return h*60+m}
@@ -328,21 +363,22 @@ function render(){
  renderSchedule();
 }
 function toast(msg){const el=$("#toast");el.textContent=msg;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),2400)}
-function openChannel(idToEdit=null){editingId=idToEdit;const c=channels.find(x=>x.id===idToEdit);$("#channelDialogTitle").textContent=c?"Modifier la chaîne":"Ajouter une chaîne";$("#channelName").value=c?.name||"";$("#channelCategory").value=c?.category||"Généraliste";$("#channelUrl").value=c?.url||"";$("#channelDialog").showModal();setTimeout(()=>$("#channelName").focus(),100)}
-function openPrograms(channelId, programId=null){
+function openChannel(idToEdit=null,draftValues=null){editingId=idToEdit;const c=channels.find(x=>x.id===idToEdit);const values=draftValues||{};$("#channelDialogTitle").textContent=c?"Modifier la chaîne":"Ajouter une chaîne";$("#channelName").value=values.name??(c?.name||"");$("#channelCategory").value=values.category??(c?.category||"Généraliste");$("#channelUrl").value=values.url??(c?.url||"");$("#channelDialog").showModal();setTimeout(()=>$("#channelName").focus(),100)}
+function openPrograms(channelId, programId=null,draftValues=null){
  currentProgramChannel=channels.find(c=>c.id===channelId);if(!currentProgramChannel)return;
  editingProgramId=programId;
  const existing=programId?(currentProgramChannel.programs||[]).find(p=>p.id===programId):null;
+ const values=draftValues||{};
  $("#programTitle").textContent=(existing?"Modifier une émission · ":"Programmer · ")+currentProgramChannel.name;
- $("#programDate").value=existing?.date||selectedGuideDate||todayString();
- $("#programRepeat").value=existing?.repeat||(existing?.date?"once":"once");
- $("#programTime").value=existing?.time||"20:00";
- $("#programEndTime").value=existing?.endTime||"21:00";
- $("#programName").value=existing?.name||"";
- $("#programDescription").value=existing?.description||"";
- $("#programSeason").value=existing?.season||"";
- $("#programEpisode").value=existing?.episode||"";
- $("#programGenre").value=existing?.genre||"";
+ $("#programDate").value=values.date??(existing?.date||selectedGuideDate||todayString());
+ $("#programRepeat").value=values.repeat??(existing?.repeat||(existing?.date?"once":"once"));
+ $("#programTime").value=values.time??(existing?.time||"20:00");
+ $("#programEndTime").value=values.endTime??(existing?.endTime||"21:00");
+ $("#programName").value=values.name??(existing?.name||"");
+ $("#programDescription").value=values.description??(existing?.description||"");
+ $("#programSeason").value=values.season??(existing?.season||"");
+ $("#programEpisode").value=values.episode??(existing?.episode||"");
+ $("#programGenre").value=values.genre??(existing?.genre||"");
  const submit=$("#programForm").querySelector('button[type="submit"]');
  submit.textContent=existing?"Enregistrer les modifications":"＋ Ajouter l’émission";
  renderPrograms();$("#programDialog").showModal()
@@ -391,7 +427,11 @@ function renderSchedule(){
  }).join("")}</div>`:`<div class="empty program-empty">La grille de cette chaîne est vide.<br>Ajoute ses émissions avec les horaires, descriptions, saisons et épisodes.</div>`;
  $("#scheduleDetail").innerHTML=hero+nowCard+nextCard+`<div class="schedule-head-actions"><button class="secondary" id="manageSelectedPrograms">✎ Gérer la grille</button><button class="secondary" id="quickAddProgram">＋ Ajouter une émission</button></div>`+schedule;
 }
-$("#channelForm").addEventListener("submit",e=>{e.preventDefault();const name=$("#channelName").value.trim();if(!name)return;const data={name,category:$("#channelCategory").value,url:$("#channelUrl").value.trim()};if(editingId){channels=channels.map(c=>c.id===editingId?{...c,...data}:c);toast("Chaîne modifiée")}else{const c={id:id(),...data,programs:[]};channels.push(c);selectedScheduleId=c.id;toast("Chaîne ajoutée")}save();$("#channelDialog").close();render()});
+$("#channelForm").addEventListener("input",persistChannelDraft);
+$("#channelForm").addEventListener("change",persistChannelDraft);
+$("#programForm").addEventListener("input",persistProgramDraft);
+$("#programForm").addEventListener("change",persistProgramDraft);
+$("#channelForm").addEventListener("submit",e=>{e.preventDefault();const name=$("#channelName").value.trim();if(!name)return;const data={name,category:$("#channelCategory").value,url:$("#channelUrl").value.trim()};if(editingId){channels=channels.map(c=>c.id===editingId?{...c,...data}:c);toast("Chaîne modifiée")}else{const c={id:id(),...data,programs:[]};channels.push(c);selectedScheduleId=c.id;toast("Chaîne ajoutée")}clearDraft();save();$("#channelDialog").close();render()});
 $("#programForm").addEventListener("submit",e=>{e.preventDefault();const name=$("#programName").value.trim(),time=$("#programTime").value,endTime=$("#programEndTime").value;if(!name||!time||!endTime||!currentProgramChannel)return;if(time===endTime){toast("L’heure de fin doit être différente du début");return}
  currentProgramChannel.programs=currentProgramChannel.programs||[];
  const date=$("#programDate").value||todayString(),repeat=$("#programRepeat").value||"once";
@@ -403,7 +443,7 @@ $("#programForm").addEventListener("submit",e=>{e.preventDefault();const name=$(
  }else{
   currentProgramChannel.programs.push({id:id(),...data});toast("Émission ajoutée");
  }
- currentProgramChannel.programs.sort((a,b)=>programStart(a)-programStart(b));save();resetProgramEditor();renderPrograms();render();renderSchedule();
+ currentProgramChannel.programs.sort((a,b)=>programStart(a)-programStart(b));clearDraft();save();resetProgramEditor();renderPrograms();render();renderSchedule();
 });
 $("#channelList").addEventListener("click",e=>{const b=e.target.closest("button");if(b){if(b.dataset.favorite){const c=channels.find(x=>x.id===b.dataset.favorite);if(c){c.favorite=!c.favorite;save();render();toast(c.favorite?"Ajoutée aux favoris":"Retirée des favoris")}return}if(b.dataset.program){openPrograms(b.dataset.program);return}if(b.dataset.edit){openChannel(b.dataset.edit);return}if(b.dataset.delete){const c=channels.find(x=>x.id===b.dataset.delete);if(c&&confirm(`Supprimer la chaîne « ${c.name} » ?`)){channels=channels.filter(x=>x.id!==c.id);save();render();toast("Chaîne supprimée")}return}}
  const card=e.target.closest("[data-open-schedule]");if(card){selectedScheduleId=card.dataset.openSchedule;setView("schedule")}
@@ -464,7 +504,7 @@ window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredIns
 $("#installApp").addEventListener("click",async()=>{if(deferredInstallPrompt){deferredInstallPrompt.prompt();const result=await deferredInstallPrompt.userChoice;$("#installHelp").textContent=result.outcome==="accepted"?"Installation acceptée.":"Installation annulée.";deferredInstallPrompt=null;}else{toast("Ouvre le menu du navigateur pour installer le guide");$("#installHelp").textContent="Pour une PWA, ouvre le site en HTTPS dans Chrome/Edge, puis menu ⋮ → Installer l’application. En fichier local, utilise plutôt « Ajouter à l’écran d’accueil » si disponible."; }});
 document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#search").focus()}});
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
-(async()=>{const imported=await autoImportData();render();if(imported)toast("Sauvegarde JSON chargée automatiquement")})();
+(async()=>{const imported=await autoImportData();render();if(imported)toast("Sauvegarde JSON chargée automatiquement");restoreDraft()})();
 function updateLiveProgress(){
  const bar=document.querySelector(".progress-fill[data-progress-duration]");
  if(!bar)return;
