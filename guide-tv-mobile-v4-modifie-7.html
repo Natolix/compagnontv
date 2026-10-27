@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101114">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Ton guide TV personnel, simple et mobile.">
+  <style>
+:root{color-scheme:dark;--bg:#101114;--panel:#191a20;--panel2:#202128;--text:#f5f5f7;--muted:#9a9ba8;--line:#2c2d36;--accent:#b9f36b;--accentText:#18220d;--radius:20px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#252a1d 0%,transparent 35%),var(--bg);color:var(--text);min-height:100vh;padding-bottom:calc(90px + env(safe-area-inset-bottom));max-width:760px;margin-inline:auto}button,input,select{font:inherit}button{cursor:pointer;touch-action:manipulation}.topbar{display:flex;align-items:center;justify-content:space-between;padding:calc(16px + env(safe-area-inset-top)) 20px 14px;border-bottom:1px solid #ffffff0b;position:sticky;top:0;z-index:3;background:#101114eF;backdrop-filter:blur(18px)}.brand{display:flex;align-items:center;gap:11px}.brand-mark{display:grid;place-items:center;width:39px;height:39px;border-radius:13px;background:var(--accent);color:var(--accentText);font-weight:900;font-size:14px;letter-spacing:-1px}.brand strong{display:block;font-size:15px;letter-spacing:-.3px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.icon-button{border:1px solid #ffffff17;background:#ffffff08;color:var(--text);width:42px;height:42px;border-radius:14px;font-size:26px;line-height:1}.welcome{padding:29px 21px 20px}.eyebrow{font-size:10px;letter-spacing:1.7px;font-weight:800;color:var(--muted)}.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:7px;box-shadow:0 0 12px #b9f36b55}.welcome h1{font-size:clamp(34px,10vw,48px);line-height:1.02;letter-spacing:-2.2px;margin:16px 0 10px;font-weight:800}.welcome h1 span{color:var(--accent)}.welcome p{font-size:13px;color:var(--muted);margin:0}.searchbox{display:flex;align-items:center;gap:10px;margin:0 18px 14px;padding:0 14px;height:49px;border:1px solid var(--line);border-radius:15px;background:#17181d;color:var(--muted)}.searchbox>span{font-size:25px;line-height:1}.searchbox input{width:100%;border:0;outline:0;background:transparent;color:var(--text);font-size:14px;min-width:0}.searchbox kbd{font-size:10px;white-space:nowrap;border:1px solid #393a44;border-radius:5px;padding:3px 5px;color:#747582}.filters{display:flex;gap:8px;overflow-x:auto;padding:0 18px 25px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filter{white-space:nowrap;border:1px solid var(--line);border-radius:99px;padding:9px 14px;background:transparent;color:#a8a9b5;font-size:12px}.filter.active{background:var(--accent);color:var(--accentText);border-color:var(--accent);font-weight:750}.section-heading{display:flex;justify-content:space-between;align-items:center;padding:0 21px 14px}.section-heading h2{font-size:19px;letter-spacing:-.5px;margin:0 0 5px}.section-heading p{font-size:11px;color:var(--muted);margin:0}.section-symbol{font-size:22px;color:var(--accent);padding-right:3px}.channel-list{padding:0 14px;display:grid;gap:9px}.channel-card{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:12px;padding:13px 12px;background:linear-gradient(110deg,#1a1b21,#17181d);border:1px solid #ffffff0b;border-radius:17px;min-height:86px}.channel-logo{height:50px;width:50px;display:grid;place-items:center;border-radius:15px;background:var(--logo-bg,#303c27);color:var(--logo-color,#d9ffac);font-size:14px;font-weight:900;letter-spacing:-.6px}.channel-info{min-width:0}.channel-title-line{display:flex;align-items:center;gap:7px;min-width:0}.channel-title{font-size:14px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.channel-category{font-size:10px;color:var(--muted);margin-top:4px}.now-label{font-size:9px;color:var(--accent);font-weight:800;letter-spacing:.8px;margin-top:9px}.now-program{font-size:12px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#dedee4}.card-actions{display:flex;flex-direction:column;gap:5px}.small-action{width:31px;height:31px;border:1px solid #ffffff10;border-radius:10px;background:#ffffff06;color:#c7c8d0;font-size:15px}.small-action:hover{border-color:#b9f36b66;color:var(--accent)}.footnote{color:#777985;font-size:10px;line-height:1.5;padding:15px 22px 0}.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:4;display:flex;justify-content:space-around;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#141519ed;border-top:1px solid #ffffff12;backdrop-filter:blur(20px);max-width:760px;margin:auto}.nav-item{display:grid;justify-items:center;gap:4px;min-width:76px;border:0;background:transparent;color:#777985;padding:4px 12px}.nav-item span{font-size:20px}.nav-item small{font-size:10px}.nav-item.selected{color:var(--accent)}.dialog{width:min(92vw,480px);max-height:86dvh;overflow:auto;padding:22px;border:1px solid #383943;border-radius:24px;background:#191a20;color:var(--text);box-shadow:0 25px 100px #000a}.dialog::backdrop{background:#0009;backdrop-filter:blur(5px)}.dialog-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}.dialog h2{font-size:23px;letter-spacing:-.8px;margin:8px 0 0}.close{border:0;background:#ffffff0d;color:#eee;width:35px;height:35px;border-radius:11px;font-size:24px;line-height:1}.dialog label{display:grid;gap:8px;font-size:12px;color:#c8c9d2;margin:14px 0}.dialog input,.dialog select,.dialog textarea{width:100%;min-width:0;height:46px;border:1px solid #383943;border-radius:12px;padding:0 12px;background:#111216;color:var(--text);outline:none}.dialog textarea{width:100%;min-width:0;border:1px solid #383943;border-radius:12px;padding:12px;background:#111216;color:var(--text);outline:none;resize:vertical;font:inherit}.dialog input:focus,.dialog select:focus,.dialog textarea:focus{border-color:var(--accent)}.form-hint{font-size:11px;color:var(--muted);line-height:1.5}.dialog-actions{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;margin-top:22px}.primary,.secondary,.danger{border:1px solid transparent;border-radius:12px;padding:12px 15px;font-size:12px;font-weight:750}.primary{background:var(--accent);color:var(--accentText)}.secondary{background:#ffffff0c;color:#e2e2e8;border-color:#ffffff12}.danger{background:#421f25;color:#ffb9c0}.program-list{display:grid;gap:8px;margin-bottom:18px}.program-row{display:grid;grid-template-columns:54px minmax(0,1fr) 32px;gap:10px;align-items:center;background:#ffffff06;padding:10px;border-radius:12px}.program-time{font-size:12px;font-weight:800;color:var(--accent)}.program-name{font-size:12px;overflow-wrap:anywhere}.delete-program{border:0;background:transparent;color:#a7a8b3;font-size:19px}.empty{padding:22px 12px;text-align:center;color:var(--muted);font-size:12px;border:1px dashed #393a43;border-radius:15px}.add-program{display:grid;grid-template-columns:100px minmax(0,1fr);gap:10px}.add-program label{margin:0}.setting-row{padding:14px 0;border-bottom:1px solid var(--line)}.setting-row strong{font-size:13px}.setting-row p{font-size:11px;color:var(--muted);line-height:1.5;margin:5px 0 0}.toast{position:fixed;bottom:calc(85px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#e8f9d5;color:#1d2911;border-radius:12px;padding:11px 15px;font-size:12px;font-weight:750;z-index:10;transition:.2s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}@media(min-width:600px){.welcome{padding-top:42px}.channel-list{grid-template-columns:repeat(2,minmax(0,1fr))}.channel-card{grid-template-columns:48px minmax(0,1fr) auto}.channel-logo{width:46px;height:46px}.bottom-nav{border:1px solid #ffffff12;border-bottom:0;border-radius:18px 18px 0 0}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Mobile-first refinements and full programming view */
+:root{--accent:#b8f36b;--radius:22px}
+body{max-width:820px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.topbar{padding-inline:16px}
+.welcome{padding:24px 18px 18px}
+.welcome h1{font-size:clamp(32px,9vw,44px);letter-spacing:-1.8px}
+.searchbox{margin-inline:14px}
+.filters{padding-inline:14px;padding-bottom:20px}
+.section-heading{padding-inline:18px}
+.channel-list{padding-inline:12px;gap:10px}
+.channel-card{grid-template-columns:48px minmax(0,1fr) auto;gap:10px;padding:12px;min-height:88px;border-radius:19px}
+.channel-logo{width:46px;height:46px;border-radius:14px}
+.card-actions{flex-direction:row;gap:4px}
+.small-action{width:34px;height:34px;font-size:16px}
+.nav-item{flex:1;min-width:0;padding:7px 4px;border-radius:13px}
+.nav-item.selected{background:#b9f36b12}
+.bottom-nav{padding-inline:8px}
+.view{display:none;animation:fadeIn .18s ease-out}
+.view.active{display:block}
+@keyframes fadeIn{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
+.program-hero{padding:24px 18px 20px}
+.back-button{display:inline-flex;align-items:center;gap:8px;background:#ffffff0b;border:1px solid #ffffff12;color:var(--text);border-radius:13px;padding:10px 13px;font-size:12px;font-weight:700;margin-bottom:20px}
+.program-hero h1{font-size:clamp(30px,8vw,42px);line-height:1.04;letter-spacing:-1.6px;margin:0 0 8px}
+.program-hero p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.program-hero-line{display:flex;align-items:center;gap:13px;margin-bottom:16px}
+.program-hero .channel-logo{width:60px;height:60px;flex-shrink:0;font-size:16px;border-radius:18px}
+.program-now{margin:0 14px 20px;padding:17px;border-radius:20px;background:linear-gradient(135deg,#26351f,#1b2119);border:1px solid #b9f36b25}
+.program-now{position:relative}.schedule-item-title{display:flex;align-items:center;gap:6px;min-width:0}.schedule-item-title h3{flex:1;min-width:0}.schedule-collapse{flex-shrink:0;width:25px;height:25px;display:grid;place-items:center;border:1px solid #ffffff14;border-radius:8px;background:#ffffff07;color:#bfc0ca;font-size:19px;line-height:1;transform:rotate(90deg);transition:transform .15s}.schedule-item.collapsed{grid-template-columns:minmax(0,1fr);padding:10px 12px}.schedule-item.collapsed .schedule-time{display:none}.schedule-item.collapsed .schedule-collapse{transform:rotate(0deg)}.schedule-item.collapsed .schedule-meta,.schedule-item.collapsed .schedule-description,.schedule-item.collapsed .schedule-actions{display:none}.schedule-item.collapsed .schedule-content{display:flex;align-items:center;min-width:0}.schedule-item.collapsed .schedule-item-title{width:100%}.schedule-item.collapsed .schedule-item-title h3{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}
+.program-now-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:10px;color:var(--accent);font-weight:850;letter-spacing:.8px}
+.program-now h2{font-size:20px;letter-spacing:-.6px;margin:12px 0 7px;line-height:1.15}
+.program-now p{font-size:12px;line-height:1.55;color:#c5c9be;margin:0}
+.progress-track{height:4px;background:#ffffff20;border-radius:99px;margin-top:15px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:99px}
+.program-now-foot{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;margin-top:8px;color:#a9b09f;font-size:10px}.program-now-foot span:first-child{text-align:left}.program-now-foot span:nth-child(2){text-align:center;white-space:nowrap}.program-now-foot span:last-child{text-align:right}
+.schedule-toolbar{display:flex;align-items:center;justify-content:space-between;padding:0 18px 14px}
+.schedule-toolbar h2{margin:0;font-size:19px;letter-spacing:-.5px}
+.schedule-toolbar span{font-size:11px;color:var(--muted)}
+.schedule-list{padding:0 12px 24px;display:grid;gap:10px}
+.schedule-item{display:grid;grid-template-columns:57px minmax(0,1fr);gap:11px;padding:14px;border-radius:18px;background:#191a20;border:1px solid #ffffff0b;position:relative;overflow:hidden}
+.schedule-item.current{border-color:#b9f36b66;background:linear-gradient(110deg,#20281c,#191a20)}
+.schedule-time{font-size:12px;font-weight:850;color:var(--accent);padding-top:2px;line-height:1.5}
+.schedule-time small{display:block;color:#858895;font-weight:600;font-size:10px}
+.schedule-content{min-width:0}
+.schedule-content h3{margin:0 0 6px;font-size:15px;line-height:1.3;letter-spacing:-.2px}
+.schedule-meta{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.meta-chip{font-size:9px;border-radius:7px;padding:4px 7px;background:#ffffff0c;color:#b6b7c1}
+.meta-chip.live{background:#b9f36b18;color:var(--accent)}
+.schedule-description{font-size:12px;line-height:1.55;color:#aeb0bc;margin:0;overflow-wrap:anywhere}
+.delete-schedule-program{color:#ff9da7;font-size:20px;line-height:1;padding:0 8px}.schedule-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:11px}
+.text-action{border:1px solid #ffffff13;border-radius:10px;padding:8px 10px;background:#ffffff08;color:#d7d8df;font-size:10px;font-weight:700}
+.channel-picker{display:flex;gap:9px;overflow-x:auto;padding:0 14px 18px;scrollbar-width:none}
+.channel-picker::-webkit-scrollbar{display:none}
+.channel-pick{display:flex;align-items:center;gap:9px;flex:0 0 auto;max-width:210px;padding:9px 12px;border-radius:15px;background:#191a20;border:1px solid #ffffff12;color:var(--text);text-align:left}
+.channel-pick.active{border-color:var(--accent);background:#b9f36b12}
+.channel-pick .channel-logo{width:36px;height:36px;border-radius:11px;font-size:11px}
+.channel-pick strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:125px}
+.channel-pick small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.programming-intro{padding:25px 18px 18px}
+.programming-intro h1{font-size:34px;letter-spacing:-1.4px;margin:10px 0 7px}
+.programming-intro p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.program-empty{margin:0 14px 20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.form-grid .full{grid-column:1/-1}
+#programDialog{width:min(94vw,520px);max-height:90dvh;padding:18px}
+#programDialog .dialog-top{margin-bottom:15px}
+#programDialog .dialog h2{font-size:21px}
+#programDialog .dialog-actions{position:sticky;bottom:-18px;background:#191a20;padding:12px 0 4px}
+#programList .program-row{grid-template-columns:92px minmax(0,1fr) 30px}
+.program-row .program-time{line-height:1.45}
+.program-row .program-time small{display:block;color:#858895;font-size:9px;font-weight:600}
+.program-row .program-name strong{display:block;font-size:12px;line-height:1.4}
+.program-row .program-name small{display:block;color:var(--muted);font-size:10px;line-height:1.4;margin-top:4px}
+.program-row .program-name p{font-size:10px;line-height:1.45;color:#aeb0bc;margin:5px 0 0}
+#programForm input,#programForm select{height:44px}
+@media(max-width:380px){.channel-card{grid-template-columns:43px minmax(0,1fr) auto;gap:8px;padding:10px}.channel-logo{width:42px;height:42px}.small-action{width:29px;height:32px}.card-actions{gap:3px}.schedule-item{grid-template-columns:51px minmax(0,1fr);gap:8px;padding:12px}.schedule-time{font-size:11px}}
+
+
+/* V3 feature layer */
+.feature-row{display:flex;gap:8px;overflow-x:auto;padding:0 14px 16px;scrollbar-width:none}
+.feature-row::-webkit-scrollbar{display:none}
+.feature-pill{white-space:nowrap;border:1px solid #ffffff16;background:#ffffff07;color:#bfc0ca;border-radius:99px;padding:9px 12px;font-size:11px;font-weight:750}
+.feature-pill.active{background:var(--accent);border-color:var(--accent);color:var(--accentText)}
+.channel-card{cursor:pointer;transition:border-color .16s,transform .16s}
+.channel-card:active{transform:scale(.99)}
+.channel-card.is-favorite{border-color:#f5d16c55}
+.favorite-button{color:#8c8e99}
+.favorite-button.favorited{color:#f5d16c;border-color:#f5d16c66;background:#f5d16c12}
+.channel-logo{position:relative}
+.next-card{margin:0 14px 18px;padding:15px;border:1px solid #ffffff10;border-radius:18px;background:#191a20}
+.next-card .eyebrow{font-size:9px}
+.next-card strong{display:block;font-size:14px;margin:8px 0 5px}
+.next-card p{font-size:11px;color:var(--muted);line-height:1.5;margin:0}
+.next-card .next-time{font-size:10px;color:var(--accent);font-weight:800}
+.schedule-head-actions{display:flex;gap:7px;flex-wrap:wrap;padding:0 14px 15px}
+.schedule-head-actions button{flex:1;min-width:110px}
+.inline-edit{border:1px solid #ffffff14;background:#ffffff08;color:#d8d9e1;border-radius:9px;padding:7px 9px;font-size:10px}
+.program-form-title{font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.7px;margin:4px 0 10px}
+#programDialog .dialog-actions{gap:7px}
+#programDialog .dialog-actions button{flex:1}
+.settings-button-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.settings-button-row button{flex:1}
+.import-file{display:none}
+@media(max-width:380px){.feature-pill{padding:8px 10px}.program-hero h1{font-size:30px}}
+
+/* V4 — date-based programming and installable-app controls */
+.date-selector{margin:0 14px 18px;padding:14px;border:1px solid #ffffff12;border-radius:17px;background:#191a20}
+.date-selector>label{display:block;color:var(--muted);font-size:11px;font-weight:750;margin-bottom:9px}
+.date-selector-row{display:flex;align-items:center;gap:6px}
+.date-selector input{flex:1;min-width:0;height:42px;border:1px solid #383943;border-radius:11px;background:#111216;color:var(--text);padding:0 8px;font:inherit}
+.date-step{font-size:22px!important;padding:5px 12px!important}
+.date-today{padding:9px 10px!important;white-space:nowrap}
+.date-selector p{font-size:10px;line-height:1.45;color:var(--muted);margin:9px 0 0}
+.program-row .program-date{display:block;color:#b9f36b;font-size:9px;margin-top:3px}
+@media(max-width:380px){.date-selector-row{flex-wrap:wrap}.date-selector input{flex-basis:55%}.date-today{flex:1}}
+</style>
+  <title>Guide TV</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">TV</span><div><strong>Guide TV</strong><small>Le programme, simplement.</small></div></div>
+    <button id="addOpen" class="icon-button" aria-label="Ajouter une chaîne" title="Ajouter une chaîne">＋</button>
+  </header>
+
+  <main>
+    <section id="channelsView" class="view active">
+      <section class="welcome">
+        <div class="eyebrow"><span class="live-dot"></span> GUIDE PERSONNEL</div>
+        <h1>Qu’est-ce qu’on<br><span>regarde ?</span></h1>
+        <p id="dateLine">Les programmes près de chez toi.</p>
+      </section>
+      <label class="searchbox"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Rechercher une chaîne…" autocomplete="off"><kbd>⌕</kbd></label>
+      <nav class="filters" id="filters" aria-label="Filtrer par catégorie">
+        <button class="filter active" data-category="Toutes">Toutes</button>
+        <button class="filter" data-category="Généraliste">Généralistes</button>
+        <button class="filter" data-category="Info">Info</button>
+        <button class="filter" data-category="Divertissement">Divertissement</button>
+        <button class="filter" data-category="Culture">Culture</button>
+      </nav>
+      <div class="feature-row" id="channelTools">
+        <button class="feature-pill active" data-channel-mode="all">Toutes les chaînes</button>
+        <button class="feature-pill" data-channel-mode="favorites">★ Favoris</button>
+        <button class="feature-pill" data-channel-mode="az">A → Z</button>
+        <button class="feature-pill" data-channel-mode="now">En cours</button>
+      </div>
+      <div class="section-heading"><div><h2>Les chaînes</h2><p id="channelCount">Chargement…</p></div><span class="section-symbol">▦</span></div>
+      <section id="channelList" class="channel-list" aria-live="polite"></section>
+      <p class="footnote">Tes chaînes et programmes sont enregistrés sur cet appareil.</p>
+    </section>
+
+    <section id="scheduleView" class="view">
+      <section class="programming-intro">
+        <div class="eyebrow"><span class="live-dot"></span> GUIDE DES PROGRAMMES</div>
+        <h1>Programmation</h1>
+        <p>Choisis une chaîne pour consulter sa grille complète, les horaires et les détails de chaque émission.</p>
+      </section>
+      <section class="date-selector">
+        <label for="guideDate">Date de la grille</label>
+        <div class="date-selector-row">
+          <button type="button" class="secondary date-step" id="previousDate" aria-label="Jour précédent">‹</button>
+          <input id="guideDate" type="date">
+          <button type="button" class="secondary date-step" id="nextDate" aria-label="Jour suivant">›</button>
+          <button type="button" class="secondary date-today" id="todayDate">Aujourd’hui</button>
+        </div>
+        <p>Les émissions ponctuelles n’apparaissent que le jour choisi. Les récurrences suivent leur règle de diffusion.</p>
+      </section>
+      <div id="channelPicker" class="channel-picker" aria-label="Choisir une chaîne"></div>
+      <div id="scheduleDetail"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navigation principale">
+    <button class="nav-item selected" id="navChannels" aria-current="page"><span>▦</span><small>Chaînes</small></button>
+    <button class="nav-item" id="navSchedule"><span>◷</span><small>Programmation</small></button>
+    <button class="nav-item" id="navSettings"><span>⚙</span><small>Réglages</small></button>
+  </nav>
+
+  <dialog id="channelDialog" class="dialog">
+    <form id="channelForm" method="dialog">
+      <div class="dialog-top"><div><span class="eyebrow">PERSONNALISATION</span><h2 id="channelDialogTitle">Ajouter une chaîne</h2></div><button type="button" class="close" data-close="channelDialog" aria-label="Fermer">×</button></div>
+      <label>Nom de la chaîne<input id="channelName" required maxlength="50" placeholder="Ex. Ma chaîne TV"></label>
+      <label>Catégorie<select id="channelCategory"><option>Généraliste</option><option>Info</option><option>Divertissement</option><option>Culture</option><option>Sport</option><option>Jeunesse</option><option>Autre</option></select></label>
+      <label>URL du flux (facultatif)<input id="channelUrl" type="url" placeholder="https://exemple.fr/stream.m3u8"></label>
+      <p class="form-hint">Cette version est un guide : elle n’intègre pas encore de lecteur vidéo. Certains flux peuvent aussi être protégés ou bloqués par leur serveur.</p>
+      <div class="dialog-actions"><button type="button" class="secondary" data-close="channelDialog">Annuler</button><button class="primary" type="submit">Enregistrer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="programDialog" class="dialog">
+    <form id="programForm" method="dialog">
+      <div class="dialog-top"><div><span class="eyebrow">GRILLE TV</span><h2 id="programTitle">Programmes</h2></div><button type="button" class="close" data-close="programDialog" aria-label="Fermer">×</button></div>
+      <div class="form-grid">
+        <label class="full">Date de diffusion<input id="programDate" type="date" required></label>
+        <label class="full">Répétition
+          <select id="programRepeat">
+            <option value="once">Une seule fois — cette date uniquement</option>
+            <option value="daily">Tous les jours</option>
+            <option value="weekdays">Du lundi au vendredi</option>
+            <option value="weekends">Samedi et dimanche</option>
+            <option value="weekly">Chaque semaine, le même jour</option>
+          </select>
+        </label>
+        <label>Heure de début<input id="programTime" type="time" required value="20:00"></label>
+        <label>Heure de fin<input id="programEndTime" type="time" required value="21:00"></label>
+        <label class="full">Titre de l’émission<input id="programName" required maxlength="100" placeholder="Ex. Le journal de 20 h"></label>
+        <label class="full">Description<textarea id="programDescription" maxlength="500" rows="3" placeholder="Résumé, invités, histoire…"></textarea></label>
+        <label>Saison (facultatif)<input id="programSeason" inputmode="numeric" type="number" min="1" max="999" placeholder="Ex. 3"></label>
+        <label>Épisode (facultatif)<input id="programEpisode" inputmode="numeric" type="number" min="1" max="9999" placeholder="Ex. 8"></label>
+        <label class="full">Genre / type<select id="programGenre"><option value="">Non précisé</option><option>Série</option><option>Film</option><option>Journal</option><option>Documentaire</option><option>Magazine</option><option>Jeu</option><option>Sport</option><option>Animation</option><option>Divertissement</option></select></label>
+      </div>
+      <p class="form-hint">Par défaut, une émission est programmée une seule fois à la date choisie. Sélectionne une répétition uniquement si tu veux qu’elle revienne. Une fin avant le début signifie que l’émission se termine le lendemain.</p>
+      <div class="dialog-actions"><button type="button" class="secondary" data-close="programDialog">Fermer</button><button class="primary" type="submit">＋ Ajouter</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="settingsDialog" class="dialog">
+    <div class="dialog-top"><div><span class="eyebrow">TON ESPACE</span><h2>Réglages</h2></div><button type="button" class="close" data-close="settingsDialog" aria-label="Fermer">×</button></div>
+    <div class="setting-row"><div><strong>Installer comme une vraie application</strong><p>La version PWA peut s’installer sur Android, Windows et certains navigateurs, sans APK. Il faut ouvrir le guide depuis une adresse HTTPS (par exemple un hébergement web), puis utiliser « Installer l’application » ou « Ajouter à l’écran d’accueil ». Un fichier HTML ouvert directement ne peut pas activer l’installation PWA complète.</p></div><div class="settings-button-row"><button id="installApp" class="secondary">Installer l’application</button></div><p class="form-hint" id="installHelp">Si aucun message d’installation n’apparaît, ouvre le menu du navigateur et cherche « Installer l’application » ou « Ajouter à l’écran d’accueil ».</p></div>
+    <div class="setting-row"><div><strong>Données enregistrées</strong><p>Les chaînes, favoris, descriptions et grilles sont sauvegardés sur cet appareil.</p></div>
+      <div class="settings-button-row"><button id="exportData" class="secondary">Exporter une sauvegarde</button><button id="importOpen" class="secondary">Importer une sauvegarde</button><input id="importFile" class="import-file" type="file" accept="application/json,.json"></div>
+    </div>
+    <div class="setting-row"><div><strong>Outils de programmation</strong><p>Duplique la grille d’une chaîne vers une autre pour gagner du temps. Tu peux ensuite personnaliser chaque émission.</p></div><label>Copier la grille depuis<select id="copySource"></select></label><label>Vers la chaîne<select id="copyTarget"></select></label><button id="copySchedule" class="secondary" style="width:100%">Copier la programmation</button></div>
+    <div class="setting-row"><div><strong>Confidentialité</strong><p>Tout est stocké localement dans ce navigateur. L’export JSON permet de transférer ou sauvegarder tes données.</p></div></div>
+    <div class="dialog-actions"><button id="resetData" class="danger">Réinitialiser le guide</button></div>
+  </dialog>
+
+  <div id="toast" role="status" class="toast"></div>
+  <script>
+const STORAGE_KEY = "tvch";
+const defaults = [
+ ["TF1","Généraliste"],["France 2","Généraliste"],["France 3","Généraliste"],["France 4","Jeunesse"],["France 5","Culture"],["Canal+","Généraliste"],["M6","Généraliste"],["Arte","Culture"],["C8","Divertissement"],["W9","Divertissement"],["TMC","Divertissement"],["TFX","Divertissement"],["NRJ12","Divertissement"],["BFM TV","Info"],["CNews","Info"],["CSTAR","Divertissement"],["Gulli","Jeunesse"],["France Info","Info"],["LCI","Info"],["Paris Première","Culture"],["Comedy Central","Divertissement"]
+];
+const palette = [["#253c2a","#c7f6a0"],["#29314b","#c5d4ff"],["#442c38","#ffc5d7"],["#3c3325","#ffe0a2"],["#263b40","#a8edf3"],["#3d2e4b","#e5c6ff"]];
+const demoPrograms = ["Le journal","Magazine du soir","Documentaire","Divertissement","Série du moment","Cinéma"];
+let channels = loadData(), activeCategory = "Toutes", channelMode="all", editingId = null, currentProgramChannel = null, editingProgramId=null, selectedScheduleId = channels[0]?.id || null, activeView="channels", selectedGuideDate=todayString(), deferredInstallPrompt=null;
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+function id(){return "ch_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,7)}
+function loadData(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+  if(Array.isArray(saved)&&saved.length){
+   return saved.map(c=>({...c,programs:(c.programs||[]).map(p=>({
+    ...p, id:p.id||("pr_"+Math.random().toString(36).slice(2,10)), endTime:p.endTime||p.end||"", description:p.description||"", season:p.season||"", episode:p.episode||"", genre:p.genre||""
+   })), favorite:!!c.favorite}));
+  }
+ }catch(e){}
+ return defaults.map(([name,category],i)=>({id:"default_"+i,name,category,url:"",programs:[]}));
+}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(channels))}catch(e){toast("Stockage indisponible sur ce navigateur")}}
+function initials(name){return name.split(/[\s-]+/).slice(0,2).map(s=>s[0]||"").join("").toUpperCase()}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function minutes(time){if(!time||!/^\d{2}:\d{2}$/.test(time))return null;const [h,m]=time.split(":").map(Number);return h*60+m}
+function programStart(p){return minutes(p.time)??0}
+function programEnd(p){let s=programStart(p),e=minutes(p.endTime);if(e===null)e=s+60;if(e<=s)e+=1440;return e}
+function todayString(d=new Date()){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");return `${y}-${m}-${day}`}
+function sortedPrograms(channel){return (channel.programs||[]).slice().sort((a,b)=>(a.date||"").localeCompare(b.date||"")||programStart(a)-programStart(b))}
+function programMatchesDate(p,date){
+ if(!p.date)return true; // Compatibilité : les anciennes émissions sans date étaient quotidiennes.
+ const rule=p.repeat||"once";
+ if(rule==="daily")return date>=p.date;
+ if(rule==="weekdays"){const day=new Date(date+"T12:00:00").getDay();return date>=p.date&&day>=1&&day<=5}
+ if(rule==="weekends"){const day=new Date(date+"T12:00:00").getDay();return date>=p.date&&(day===0||day===6)}
+ if(rule==="weekly"){const start=new Date(p.date+"T12:00:00").getDay(),day=new Date(date+"T12:00:00").getDay();return date>=p.date&&day===start}
+ return date===p.date;
+}
+function programsForDate(channel,date=selectedGuideDate){return sortedPrograms(channel).filter(p=>programMatchesDate(p,date))}
+function nowMinutes(){const d=new Date();return d.getHours()*60+d.getMinutes()}
+function getCurrentProgram(channel,date=todayString()){
+ if(date!==todayString())return null;
+ const ps=programsForDate(channel,date);if(!ps.length)return null;
+ const now=nowMinutes();
+ for(let i=0;i<ps.length;i++){
+  const s=programStart(ps[i]),e=programEnd(ps[i]);
+  if((now>=s&&now<e)||(e>1440&&now+1440<e&&now>=s))return ps[i];
+  if(s>now&&s-1440<0&&now+1440<e)return ps[i];
+ }
+ for(let i=0;i<ps.length;i++){const s=programStart(ps[i]),e=programEnd(ps[i]);if(e>1440&&now<e-1440)return ps[i]}
+ return null;
+}
+function deterministicProgram(channel){let seed=0;for(const c of channel.name)seed=(seed*31+c.charCodeAt(0))>>>0;return demoPrograms[seed%demoPrograms.length]}
+function currentProgramTitle(channel){return getCurrentProgram(channel)?.name||((channel.programs||[]).length? "Aucun programme en cours":"Grille à compléter")}
+function paletteFor(name){const idx=Math.abs([...name].reduce((a,x)=>a+x.charCodeAt(0),0))%palette.length;return palette[idx]}
+function logoHtml(c,extra=""){const [bg,fg]=paletteFor(c.name);return `<div class="channel-logo ${extra}" style="--logo-bg:${bg};--logo-color:${fg}">${escapeHtml(initials(c.name))}</div>`}
+function render(){
+ const query=$("#search").value.trim().toLocaleLowerCase("fr");
+ let list=channels.filter(c=>(activeCategory==="Toutes"||c.category===activeCategory)&&(`${c.name} ${c.category}`).toLocaleLowerCase("fr").includes(query));
+ if(channelMode==="favorites")list=list.filter(c=>c.favorite);
+ if(channelMode==="now")list=list.filter(c=>getCurrentProgram(c));
+ if(channelMode==="az")list=list.slice().sort((a,b)=>a.name.localeCompare(b.name,"fr"));
+ else if(channelMode!=="favorites"&&channelMode!=="now")list=list.slice().sort((a,b)=>Number(!!b.favorite)-Number(!!a.favorite));
+ $("#channelCount").textContent=`${list.length} chaîne${list.length>1?"s":""} · ${new Intl.DateTimeFormat("fr-FR",{hour:"2-digit",minute:"2-digit"}).format(new Date())}`;
+ $("#channelList").innerHTML=list.length?list.map(c=>`<article class="channel-card ${c.favorite?"is-favorite":""}" data-open-schedule="${c.id}">
+ ${logoHtml(c)}
+ <div class="channel-info"><div class="channel-title-line"><div class="channel-title">${escapeHtml(c.name)}</div></div><div class="channel-category">${escapeHtml(c.category||"Autre")}</div><div class="now-label">EN CE MOMENT</div><div class="now-program">${escapeHtml(currentProgramTitle(c))}</div></div>
+ <div class="card-actions"><button class="small-action favorite-button ${c.favorite?"favorited":""}" data-favorite="${c.id}" aria-label="${c.favorite?"Retirer des favoris":"Ajouter aux favoris"}" title="Favori">${c.favorite?"★":"☆"}</button><button class="small-action" data-program="${c.id}" aria-label="Gérer la programmation de ${escapeHtml(c.name)}" title="Programmation">◷</button><button class="small-action" data-edit="${c.id}" aria-label="Modifier ${escapeHtml(c.name)}" title="Modifier">✎</button><button class="small-action" data-delete="${c.id}" aria-label="Supprimer ${escapeHtml(c.name)}" title="Supprimer">×</button></div>
+ </article>`).join(""):`<div class="empty">Aucune chaîne trouvée.<br>Essaie une autre recherche ou ajoute une chaîne.</div>`;
+ renderSchedule();
+}
+function toast(msg){const el=$("#toast");el.textContent=msg;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),2400)}
+function openChannel(idToEdit=null){editingId=idToEdit;const c=channels.find(x=>x.id===idToEdit);$("#channelDialogTitle").textContent=c?"Modifier la chaîne":"Ajouter une chaîne";$("#channelName").value=c?.name||"";$("#channelCategory").value=c?.category||"Généraliste";$("#channelUrl").value=c?.url||"";$("#channelDialog").showModal();setTimeout(()=>$("#channelName").focus(),100)}
+function openPrograms(channelId, programId=null){
+ currentProgramChannel=channels.find(c=>c.id===channelId);if(!currentProgramChannel)return;
+ editingProgramId=programId;
+ const existing=programId?(currentProgramChannel.programs||[]).find(p=>p.id===programId):null;
+ $("#programTitle").textContent=(existing?"Modifier une émission · ":"Programmer · ")+currentProgramChannel.name;
+ $("#programDate").value=existing?.date||selectedGuideDate||todayString();
+ $("#programRepeat").value=existing?.repeat||(existing?.date?"once":"once");
+ $("#programTime").value=existing?.time||"20:00";
+ $("#programEndTime").value=existing?.endTime||"21:00";
+ $("#programName").value=existing?.name||"";
+ $("#programDescription").value=existing?.description||"";
+ $("#programSeason").value=existing?.season||"";
+ $("#programEpisode").value=existing?.episode||"";
+ $("#programGenre").value=existing?.genre||"";
+ const submit=$("#programForm").querySelector('button[type="submit"]');
+ submit.textContent=existing?"Enregistrer les modifications":"＋ Ajouter l’émission";
+ renderPrograms();$("#programDialog").showModal()
+}
+function resetProgramEditor(){
+ editingProgramId=null;
+ $("#programDate").value=selectedGuideDate||todayString();$("#programRepeat").value="once";
+ $("#programTime").value="20:00";$("#programEndTime").value="21:00";$("#programName").value="";
+ $("#programDescription").value="";$("#programSeason").value="";$("#programEpisode").value="";$("#programGenre").value="";
+ const submit=$("#programForm").querySelector('button[type="submit"]');if(submit)submit.textContent="＋ Ajouter l’émission";
+}
+function detailsMeta(p){return [p.genre,p.season?`Saison ${p.season}`:"",p.episode?`Épisode ${p.episode}`:""].filter(Boolean)}
+function formatDuration(minutes){minutes=Math.max(0,Math.round(minutes));const h=Math.floor(minutes/60),m=minutes%60;return h?`${h} h${m?` ${m} min`:""}`:`${m} min`}
+function renderPrograms(){ /* La liste des émissions précédentes n’est plus affichée dans le formulaire. */ }
+
+function setView(view){
+ activeView=view;
+ $("#channelsView").classList.toggle("active",view==="channels");
+ $("#scheduleView").classList.toggle("active",view==="schedule");
+ $$(".nav-item").forEach(b=>{const selected=(view==="channels"&&b.id==="navChannels")||(view==="schedule"&&b.id==="navSchedule")||(view==="settings"&&b.id==="navSettings");b.classList.toggle("selected",selected);if(selected)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
+ if(view==="schedule"){renderSchedule();window.scrollTo({top:0,behavior:"smooth"})}
+}
+function renderSchedule(){
+ if(!$("#channelPicker"))return;
+ if(!channels.length){$("#channelPicker").innerHTML="";$("#scheduleDetail").innerHTML='<div class="empty program-empty">Aucune chaîne. Ajoute-en une pour créer sa programmation.</div>';return}
+ if(!channels.some(c=>c.id===selectedScheduleId))selectedScheduleId=channels[0].id;
+ const selected=channels.find(c=>c.id===selectedScheduleId)||channels[0];
+ $("#channelPicker").innerHTML=channels.map(c=>`<button class="channel-pick ${c.id===selected.id?"active":""}" data-pick-channel="${c.id}">${logoHtml(c)}<span><strong>${escapeHtml(c.name)}</strong><small>${escapeHtml(c.category||"Autre")}</small></span></button>`).join("");
+ const ps=programsForDate(selected,selectedGuideDate),current=getCurrentProgram(selected,selectedGuideDate),now=nowMinutes();
+ $("#guideDate").value=selectedGuideDate;
+ const chosenDate=new Date(selectedGuideDate+"T12:00:00");
+ const dateLabel=new Intl.DateTimeFormat("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(chosenDate);
+ const dateHeading=$("#scheduleView .programming-intro p"); if(dateHeading)dateHeading.textContent="Grille du "+dateLabel+". Les émissions ponctuelles restent limitées à leur date.";
+ const hero=`<section class="program-hero"><button class="back-button" id="backToChannels">← Toutes les chaînes</button><div class="program-hero-line">${logoHtml(selected)}<div><h1>${escapeHtml(selected.name)}</h1><p>${escapeHtml(selected.category||"Autre")} · ${ps.length} programme${ps.length>1?"s":""} renseigné${ps.length>1?"s":""}</p></div></div><p>La grille de ${escapeHtml(selected.name)} pour le ${escapeHtml(dateLabel)}, avec les horaires et les détails de chaque programme.</p></section>`;
+ let nowCard="";
+ if(current){
+  const s=programStart(current),e=programEnd(current),effectiveEnd=e>1440?e-1440:e;
+  let duration=e-s,elapsed=now>=s?now-s:now+1440-s;const progress=Math.max(0,Math.min(100,elapsed/duration*100));
+  nowCard=`<section class="program-now" id="currentProgramCard"><div class="program-now-top"><span><span class="live-dot"></span> EN CE MOMENT</span><span>${escapeHtml(current.time)} – ${escapeHtml(current.endTime||"--:--")}</span></div><h2>${escapeHtml(current.name)}</h2>${detailsMeta(current).length?`<div class="schedule-meta">${detailsMeta(current).map(x=>`<span class="meta-chip live">${escapeHtml(x)}</span>`).join("")}</div>`:""}<p>${escapeHtml(current.description||"Aucune description renseignée pour ce programme.")}</p><div class="progress-track"><div class="progress-fill" data-progress-start="${s%1440}" data-progress-duration="${duration}" style="width:${progress}%"></div></div><div class="program-now-foot"><span>${escapeHtml(current.time)}</span><span>${duration} minute${duration>1?"s":""}</span><span>${escapeHtml(current.endTime||"--:--")}</span></div></section>`;
+ }
+ const next=ps.filter(p=>programStart(p)>now).sort((a,b)=>programStart(a)-programStart(b))[0];
+ const nextCard=next?`<section class="next-card"><div class="eyebrow">À SUIVRE</div><div class="next-time">${escapeHtml(next.time)} – ${escapeHtml(next.endTime||"--:--")}</div><strong>${escapeHtml(next.name)}</strong><p>${escapeHtml(next.description||"Aucune description renseignée.")}</p></section>`:"";
+ const schedule=ps.length?`<div class="schedule-toolbar"><h2>La grille</h2><span>${ps.length} programme${ps.length>1?"s":""}</span></div><div class="schedule-list">${ps.map(p=>{
+  const s=programStart(p),e=programEnd(p),isCurrent=current===p,meta=detailsMeta(p);
+  return `<article class="schedule-item ${isCurrent?"current":""}" data-schedule-item="${escapeHtml(p.id||"")}"><div class="schedule-time">${escapeHtml(p.time)}<small>jusqu’à</small>${escapeHtml(p.endTime||"--:--")}</div><div class="schedule-content"><div class="schedule-item-title"><h3>${escapeHtml(p.name)} ${isCurrent?'<span class="meta-chip live">EN COURS</span>':""}</h3><button type="button" class="schedule-collapse" data-collapse-schedule aria-label="Réduire cette émission" aria-expanded="true">›</button></div>${meta.length?`<div class="schedule-meta">${meta.map(x=>`<span class="meta-chip">${escapeHtml(x)}</span>`).join("")}</div>`:""}<p class="schedule-description">${escapeHtml(p.description||"Pas encore de description pour cette émission.")}</p><div class="schedule-actions"><button class="text-action" data-edit-program="${escapeHtml(p.id||"")}" data-program-index="${ps.indexOf(p)}">Modifier cette émission</button><button class="text-action" data-duplicate-program="${escapeHtml(p.id||"")}">Dupliquer</button><button class="text-action delete-schedule-program" data-delete-schedule-program="${escapeHtml(p.id||"")}" aria-label="Supprimer cette émission" title="Supprimer cette émission">×</button></div></div></article>`;
+ }).join("")}</div>`:`<div class="empty program-empty">La grille de cette chaîne est vide.<br>Ajoute ses émissions avec les horaires, descriptions, saisons et épisodes.</div>`;
+ $("#scheduleDetail").innerHTML=hero+nowCard+nextCard+`<div class="schedule-head-actions"><button class="secondary" id="manageSelectedPrograms">✎ Gérer la grille</button><button class="secondary" id="quickAddProgram">＋ Ajouter une émission</button></div>`+schedule;
+}
+$("#channelForm").addEventListener("submit",e=>{e.preventDefault();const name=$("#channelName").value.trim();if(!name)return;const data={name,category:$("#channelCategory").value,url:$("#channelUrl").value.trim()};if(editingId){channels=channels.map(c=>c.id===editingId?{...c,...data}:c);toast("Chaîne modifiée")}else{const c={id:id(),...data,programs:[]};channels.push(c);selectedScheduleId=c.id;toast("Chaîne ajoutée")}save();$("#channelDialog").close();render()});
+$("#programForm").addEventListener("submit",e=>{e.preventDefault();const name=$("#programName").value.trim(),time=$("#programTime").value,endTime=$("#programEndTime").value;if(!name||!time||!endTime||!currentProgramChannel)return;if(time===endTime){toast("L’heure de fin doit être différente du début");return}
+ currentProgramChannel.programs=currentProgramChannel.programs||[];
+ const date=$("#programDate").value||todayString(),repeat=$("#programRepeat").value||"once";
+ const data={date,repeat,time,endTime,name,description:$("#programDescription").value.trim(),season:$("#programSeason").value?Number($("#programSeason").value):"",episode:$("#programEpisode").value?Number($("#programEpisode").value):"",genre:$("#programGenre").value};
+ if(editingProgramId){
+  const idx=currentProgramChannel.programs.findIndex(p=>p.id===editingProgramId);
+  if(idx>=0)currentProgramChannel.programs[idx]={...currentProgramChannel.programs[idx],...data};
+  toast("Émission modifiée");
+ }else{
+  currentProgramChannel.programs.push({id:id(),...data});toast("Émission ajoutée");
+ }
+ currentProgramChannel.programs.sort((a,b)=>programStart(a)-programStart(b));save();resetProgramEditor();renderPrograms();render();renderSchedule();
+});
+$("#channelList").addEventListener("click",e=>{const b=e.target.closest("button");if(b){if(b.dataset.favorite){const c=channels.find(x=>x.id===b.dataset.favorite);if(c){c.favorite=!c.favorite;save();render();toast(c.favorite?"Ajoutée aux favoris":"Retirée des favoris")}return}if(b.dataset.program){openPrograms(b.dataset.program);return}if(b.dataset.edit){openChannel(b.dataset.edit);return}if(b.dataset.delete){const c=channels.find(x=>x.id===b.dataset.delete);if(c&&confirm(`Supprimer la chaîne « ${c.name} » ?`)){channels=channels.filter(x=>x.id!==c.id);save();render();toast("Chaîne supprimée")}return}}
+ const card=e.target.closest("[data-open-schedule]");if(card){selectedScheduleId=card.dataset.openSchedule;setView("schedule")}
+});
+$("#channelPicker").addEventListener("click",e=>{const b=e.target.closest("[data-pick-channel]");if(!b)return;selectedScheduleId=b.dataset.pickChannel;renderSchedule()});
+$("#scheduleDetail").addEventListener("click",e=>{
+ if(e.target.closest("#backToChannels")){setView("channels");return}
+ const collapse=e.target.closest("[data-collapse-schedule]");
+ if(collapse){const item=collapse.closest(".schedule-item");if(item){const collapsed=item.classList.toggle("collapsed");collapse.setAttribute("aria-expanded",String(!collapsed));collapse.setAttribute("aria-label",collapsed?"Développer cette émission":"Réduire cette émission");}return}
+ if(e.target.closest("#manageSelectedPrograms")||e.target.closest("#quickAddProgram")){openPrograms(selectedScheduleId);return}
+ const edit=e.target.closest("[data-edit-program]");
+ if(edit){openPrograms(selectedScheduleId,edit.dataset.editProgram);return}
+ const dup=e.target.closest("[data-duplicate-program]");
+ if(dup){
+  const c=channels.find(x=>x.id===selectedScheduleId),original=c?.programs?.find(p=>p.id===dup.dataset.duplicateProgram);
+  if(c&&original){c.programs.push({...original,id:id(),name:original.name+" (copie)"});save();renderSchedule();render();toast("Émission dupliquée")}
+ }
+});
+$("#scheduleDetail").addEventListener("click",e=>{
+ const del=e.target.closest("[data-delete-schedule-program]");
+ if(!del)return;
+ const c=channels.find(x=>x.id===selectedScheduleId);
+ if(!c)return;
+ const program=c.programs?.find(p=>p.id===del.dataset.deleteScheduleProgram);
+ if(!program)return;
+ if(confirm(`Supprimer « ${program.name} » de la grille ?`)){
+  c.programs=c.programs.filter(p=>p.id!==program.id);save();renderSchedule();render();toast("Émission supprimée");
+ }
+});
+
+$("#search").addEventListener("input",render);
+$("#filters").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;activeCategory=b.dataset.category;$$(".filter").forEach(x=>x.classList.toggle("active",x===b));render()});
+$("#addOpen").addEventListener("click",()=>openChannel());
+$("#channelTools").addEventListener("click",e=>{const b=e.target.closest("[data-channel-mode]");if(!b)return;channelMode=b.dataset.channelMode;$$("[data-channel-mode]").forEach(x=>x.classList.toggle("active",x===b));render()});
+function updateCopySelectors(){
+ const opts=channels.map(c=>`<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`).join("");
+ $("#copySource").innerHTML=opts;$("#copyTarget").innerHTML=opts;
+ if(channels.length>1)$("#copyTarget").selectedIndex=1;
+}
+$("#navSettings").addEventListener("click",()=>{updateCopySelectors();$("#settingsDialog").showModal()});
+$$("[data-close]").forEach(b=>b.addEventListener("click",()=>$("#"+b.dataset.close).close()));
+$("#programDialog").addEventListener("close",()=>{resetProgramEditor();currentProgramChannel=null});
+$("#navChannels").addEventListener("click",()=>setView("channels"));
+
+$("#navSchedule").addEventListener("click",()=>setView("schedule"));
+$("#exportData").addEventListener("click",()=>{const blob=new Blob([JSON.stringify({app:"Guide TV",version:3,exportedAt:new Date().toISOString(),channels},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="guide-tv-sauvegarde.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast("Sauvegarde exportée")});
+$("#importOpen").addEventListener("click",()=>$("#importFile").click());
+$("#importFile").addEventListener("change",async e=>{const file=e.target.files?.[0];if(!file)return;try{const data=JSON.parse(await file.text());const incoming=Array.isArray(data)?data:data.channels;if(!Array.isArray(incoming)||!incoming.every(c=>c&&typeof c.name==="string"))throw new Error("Format");if(!confirm("Importer cette sauvegarde remplacera les chaînes actuelles. Continuer ?"))return;channels=incoming.map((c,i)=>({...c,id:c.id||("import_"+i),favorite:!!c.favorite,programs:(c.programs||[]).map(p=>({...p,id:p.id||id(),endTime:p.endTime||"",description:p.description||"",season:p.season||"",episode:p.episode||"",genre:p.genre||""}))}));selectedScheduleId=channels[0]?.id||null;save();render();updateCopySelectors();$("#settingsDialog").close();toast("Sauvegarde importée")}catch(err){toast("Fichier JSON invalide")}finally{e.target.value=""}});
+$("#copySchedule").addEventListener("click",()=>{const src=channels.find(c=>c.id===$("#copySource").value),dst=channels.find(c=>c.id===$("#copyTarget").value);if(!src||!dst||src.id===dst.id){toast("Choisis deux chaînes différentes");return}if(!confirm(`Remplacer la grille de ${dst.name} par une copie de celle de ${src.name} ?`))return;dst.programs=(src.programs||[]).map(p=>({...p,id:id()}));save();selectedScheduleId=dst.id;render();updateCopySelectors();toast("Grille copiée")});
+$("#resetData").addEventListener("click",()=>{if(confirm("Réinitialiser toutes les chaînes et tous les programmes ?")){channels=defaults.map(([name,category],i)=>({id:"default_"+i,name,category,url:"",favorite:false,programs:[]}));selectedScheduleId=channels[0]?.id||null;channelMode="all";$$("[data-channel-mode]").forEach(x=>x.classList.toggle("active",x.dataset.channelMode==="all"));save();render();$("#settingsDialog").close();toast("Guide réinitialisé")}});
+$("#dateLine").textContent=new Intl.DateTimeFormat("fr-FR",{weekday:"long",day:"numeric",month:"long"}).format(new Date()).replace(/^./,x=>x.toUpperCase());
+$("#guideDate").value=selectedGuideDate;
+$("#guideDate").addEventListener("change",e=>{if(e.target.value){selectedGuideDate=e.target.value;renderSchedule();}});
+$("#previousDate").addEventListener("click",()=>{const d=new Date(selectedGuideDate+"T12:00:00");d.setDate(d.getDate()-1);selectedGuideDate=todayString(d);renderSchedule();});
+$("#nextDate").addEventListener("click",()=>{const d=new Date(selectedGuideDate+"T12:00:00");d.setDate(d.getDate()+1);selectedGuideDate=todayString(d);renderSchedule();});
+$("#todayDate").addEventListener("click",()=>{selectedGuideDate=todayString();renderSchedule();});
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e;$("#installApp").textContent="Installer maintenant";});
+$("#installApp").addEventListener("click",async()=>{if(deferredInstallPrompt){deferredInstallPrompt.prompt();const result=await deferredInstallPrompt.userChoice;$("#installHelp").textContent=result.outcome==="accepted"?"Installation acceptée.":"Installation annulée.";deferredInstallPrompt=null;}else{toast("Ouvre le menu du navigateur pour installer le guide");$("#installHelp").textContent="Pour une PWA, ouvre le site en HTTPS dans Chrome/Edge, puis menu ⋮ → Installer l’application. En fichier local, utilise plutôt « Ajouter à l’écran d’accueil » si disponible."; }});
+document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#search").focus()}});
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+render();
+function updateLiveProgress(){
+ const bar=document.querySelector(".progress-fill[data-progress-duration]");
+ if(!bar)return;
+ const start=Number(bar.dataset.progressStart),duration=Number(bar.dataset.progressDuration);
+ if(!Number.isFinite(start)||!Number.isFinite(duration)||duration<=0)return;
+ const now=new Date();
+ const current=now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
+ let elapsed=current-start;
+ if(elapsed<0)elapsed+=1440;
+ const progress=Math.max(0,Math.min(100,elapsed/duration*100));
+ bar.style.width=progress+"%";
+}
+updateLiveProgress();
+setInterval(updateLiveProgress,1000);
+</script>
+</body>
+</html>

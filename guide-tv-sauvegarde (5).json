@@ -1,0 +1,64 @@
+{
+  "app": "Guide TV",
+  "version": 3,
+  "exportedAt": "2026-10-27T22:55:40.072Z",
+  "channels": [
+    {
+      "id": "ch_mvpw5jj0_pmlvt",
+      "name": "Compagnon",
+      "category": "Généraliste",
+      "url": "https://compagnon.tv/fr-no/live.m3u8",
+      "programs": [
+        {
+          "id": "ch_mvr8600p_596ps",
+          "date": "2026-10-27",
+          "repeat": "once",
+          "time": "22:40",
+          "endTime": "23:10",
+          "name": "South Park",
+          "description": "Butters et Cartman travaille dans un stand de glace, jusqu'au jour où Cartman trouve une idée de stand de hot-dog avec Kenny.",
+          "season": 26,
+          "episode": 5,
+          "genre": "Divertissement"
+        },
+        {
+          "id": "ch_mvr8gc22_mctx2",
+          "date": "2026-10-27",
+          "repeat": "once",
+          "time": "23:10",
+          "endTime": "23:30",
+          "name": "South Park",
+          "description": "Garrison profite du spring break pour reprendre son ancien train de vie. Cet événement a des répercussions incontrôlables sur celles et ceux qui croisent sa route.",
+          "season": 26,
+          "episode": 6,
+          "genre": "Divertissement"
+        },
+        {
+          "id": "ch_mvr9itqa_70aac",
+          "date": "2026-10-27",
+          "repeat": "once",
+          "time": "23:30",
+          "endTime": "23:50",
+          "name": "South Park",
+          "description": "Cartman est très inquiet. En effet, durant la nuit, il a fait un rêve plutôt étrange où des extraterrestres venue l'enlever lui auraient introduit une sonde anale. Il décide d'en parler à ses amis lui confirmant la chose : ses flatulences ne s'apparentent-elles pas à une flamme de chalumeau ?",
+          "season": 1,
+          "episode": 1,
+          "genre": "Divertissement"
+        },
+        {
+          "id": "ch_mvr9yib3_xxlop",
+          "date": "2026-10-27",
+          "repeat": "once",
+          "time": "23:50",
+          "endTime": "00:15",
+          "name": "South Park",
+          "description": "À la stupéfaction générale, Cartman est le gagnant d'un concours de rédaction. La récompense va lui être remise par Kathy Lee Gifford, une vedette de la télévision.",
+          "season": 1,
+          "episode": 2,
+          "genre": "Divertissement"
+        }
+      ],
+      "favorite": false
+    }
+  ]
+}
