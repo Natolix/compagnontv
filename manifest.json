@@ -1,0 +1,22 @@
+
+{
+  "id": "./",
+  "name": "CompagnonTV",
+  "short_name": "CTV",
+  "description": "Ton guide TV personnel, avec tes chaînes et tes programmes.",
+  "lang": "fr-FR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#101114",
+  "theme_color": "#101114",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
