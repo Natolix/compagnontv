@@ -3,7 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#101114">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#101114">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
   <meta name="description" content="Ton guide TV personnel, simple et mobile.">
   <style>
 :root{color-scheme:dark;--bg:#101114;--panel:#191a20;--panel2:#202128;--text:#f5f5f7;--muted:#9a9ba8;--line:#2c2d36;--accent:#b9f36b;--accentText:#18220d;--radius:20px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -225,7 +231,7 @@ body{max-width:820px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 
   <dialog id="settingsDialog" class="dialog">
     <div class="dialog-top"><div><span class="eyebrow">TON ESPACE</span><h2>Réglages</h2></div><button type="button" class="close" data-close="settingsDialog" aria-label="Fermer">×</button></div>
-    <div class="setting-row"><div><strong>Installer comme une vraie application</strong><p>La version PWA peut s’installer sur Android, Windows et certains navigateurs, sans APK. Il faut ouvrir le guide depuis une adresse HTTPS (par exemple un hébergement web), puis utiliser « Installer l’application » ou « Ajouter à l’écran d’accueil ». Un fichier HTML ouvert directement ne peut pas activer l’installation PWA complète.</p></div><div class="settings-button-row"><button id="installApp" class="secondary">Installer l’application</button></div><p class="form-hint" id="installHelp">Si aucun message d’installation n’apparaît, ouvre le menu du navigateur et cherche « Installer l’application » ou « Ajouter à l’écran d’accueil ».</p></div>
+    <div class="setting-row"><div><strong>Installer comme une vraie application</strong><p>La version PWA peut s’installer sur Android et navigateurs mobiles (Chrome ou Firefox), sans APK. Il faut ouvrir le guide depuis une adresse HTTPS (par exemple un hébergement web), puis utiliser « Installer l’application » ou « Ajouter à l’écran d’accueil ». Un fichier HTML ouvert directement ne peut pas activer l’installation PWA complète.</p></div><div class="settings-button-row"><button id="installApp" class="secondary">Installer l’application</button></div><p class="form-hint" id="installHelp">Si aucun message d’installation n’apparaît, ouvre le menu du navigateur et cherche « Installer l’application » (Chrome) ou « Ajouter à l’écran d’accueil » (Firefox).</p></div>
     <div class="setting-row"><div><strong>Données enregistrées</strong><p>Les chaînes, favoris, descriptions et grilles sont sauvegardés sur cet appareil.</p></div>
       <div class="settings-button-row"><button id="exportData" class="secondary">Exporter une sauvegarde</button><button id="importOpen" class="secondary">Importer une sauvegarde</button><input id="importFile" class="import-file" type="file" accept="application/json,.json"></div>
     </div>
@@ -238,7 +244,6 @@ body{max-width:820px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
   <script>
 const STORAGE_KEY = "tvch";
 const DRAFT_STORAGE_KEY = "tvch_draft";
-const AUTO_IMPORT_FILE = "./guide-tv-sauvegarde%20(5).json";
 const defaults = [
  ["TF1","Généraliste"],["France 2","Généraliste"],["France 3","Généraliste"],["France 4","Jeunesse"],["France 5","Culture"],["Canal+","Généraliste"],["M6","Généraliste"],["Arte","Culture"],["C8","Divertissement"],["W9","Divertissement"],["TMC","Divertissement"],["TFX","Divertissement"],["NRJ12","Divertissement"],["BFM TV","Info"],["CNews","Info"],["CSTAR","Divertissement"],["Gulli","Jeunesse"],["France Info","Info"],["LCI","Info"],["Paris Première","Culture"],["Comedy Central","Divertissement"]
 ];
@@ -261,22 +266,6 @@ function loadData(){
 }
 function normalizeChannels(incoming,prefix="import"){
  return incoming.map((c,i)=>({...c,id:c.id||(`${prefix}_${i}`),favorite:!!c.favorite,programs:(c.programs||[]).map(p=>({...p,id:p.id||id(),endTime:p.endTime||p.end||"",description:p.description||"",season:p.season||"",episode:p.episode||"",genre:p.genre||""}))}));
-}
-async function autoImportData(){
- if(localStorage.getItem(STORAGE_KEY))return false;
- try{
-  const response=await fetch(AUTO_IMPORT_FILE,{cache:"no-store"});
-  if(!response.ok)throw new Error(`HTTP ${response.status}`);
-  const data=await response.json();
-  const incoming=Array.isArray(data)?data:data.channels;
-  if(!Array.isArray(incoming)||!incoming.every(c=>c&&typeof c.name==="string"))throw new Error("Format");
-  channels=normalizeChannels(incoming,"auto_import");
-  selectedScheduleId=channels[0]?.id||null;
-  save();
-  return true;
- }catch(error){
-  return false;
- }
 }
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(channels))}catch(e){toast("Stockage indisponible sur ce navigateur")}}
 function saveDraft(draft){
@@ -501,10 +490,11 @@ $("#previousDate").addEventListener("click",()=>{const d=new Date(selectedGuideD
 $("#nextDate").addEventListener("click",()=>{const d=new Date(selectedGuideDate+"T12:00:00");d.setDate(d.getDate()+1);selectedGuideDate=todayString(d);renderSchedule();});
 $("#todayDate").addEventListener("click",()=>{selectedGuideDate=todayString();renderSchedule();});
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e;$("#installApp").textContent="Installer maintenant";});
-$("#installApp").addEventListener("click",async()=>{if(deferredInstallPrompt){deferredInstallPrompt.prompt();const result=await deferredInstallPrompt.userChoice;$("#installHelp").textContent=result.outcome==="accepted"?"Installation acceptée.":"Installation annulée.";deferredInstallPrompt=null;}else{toast("Ouvre le menu du navigateur pour installer le guide");$("#installHelp").textContent="Pour une PWA, ouvre le site en HTTPS dans Chrome/Edge, puis menu ⋮ → Installer l’application. En fichier local, utilise plutôt « Ajouter à l’écran d’accueil » si disponible."; }});
+$("#installApp").addEventListener("click",async()=>{if(deferredInstallPrompt){deferredInstallPrompt.prompt();const result=await deferredInstallPrompt.userChoice;$("#installHelp").textContent=result.outcome==="accepted"?"Installation acceptée.":"Installation annulée.";deferredInstallPrompt=null;}else{toast("Ouvre le menu du navigateur pour installer le guide");$("#installHelp").textContent="En HTTPS : Chrome Android → menu ⋮ puis « Installer l’application ». Firefox Android → menu ⋮ puis « Ajouter à l’écran d’accueil »."; }});
 document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#search").focus()}});
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
-(async()=>{const imported=await autoImportData();render();if(imported)toast("Sauvegarde JSON chargée automatiquement");restoreDraft()})();
+render();
+restoreDraft();
 function updateLiveProgress(){
  const bar=document.querySelector(".progress-fill[data-progress-duration]");
  if(!bar)return;
